@@ -1,0 +1,71 @@
+html, body, pre, code, kbd, samp {
+    font-family: "둥근모꼴";
+}
+
+
+
+body {
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-content, .form-answer
+,.game-number {
+    display: flex;
+    justify-content: center;
+}
+
+
+.nes-field, .nes-input {
+    max-width: 200px;
+}
+
+.btn-group {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 50px;
+}
+    
+.question {
+    /* min-height: 30px; */
+}
+
+ul {    
+    display: flex;
+    gap: 10px;
+    list-style: none;
+
+}
+
+ul li {
+    border: 3px solid #000;
+    padding: 5px;
+}
+
+.nes-progress {
+    margin-bottom: 20px;
+}
+
+.form-content {
+    margin-bottom: 20px;
+}
+
+.lists li {
+    height: 50px;
+}
+
+
+.wrapper {
+    display: flex;
+}
+
+.wrapper ul {
+    display: flex;
+}
+
+.remember-list {
+    display: flex;
+    flex-wrap: wrap;
+}

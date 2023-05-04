@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>숫자야구게임</title>
+    </head>
+
+    <body>
+        <!-- <div class='question'>문제제시</div>
+        <form action="">
+            <input type="text">
+            <button>입력</button>
+        </form>
+        <div class='answer'>
+            정답 or 틀림
+        </div> -->
+
+
+        <script>
+            let arr_num;
+            let number_question;
+
+            function get_num() {
+                arr_num = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+                number_question = []; // 문제 배열 생성,초기화
+
+                for (let i = 0; i < 4; i++) { // 문제생성(4자리 숫자)
+                    let random_num = arr_num.splice(Math.floor(Math.random() * 10 - i), 1);
+                    number_question.push(random_num);
+                }
+            }
+            get_num();
+            number_question = number_question.join('')  // 랜덤 숫자 생성 완료
+
+            const body = document.querySelector('body');
+            const question = document.createElement('div');
+            question.textContent = `문제는 ${number_question}입니다.`;
+            const form = document.createElement('form');
+            const input = document.createElement('input');
+            input.maxLength = 4;
+            const button = document.createElement('button');
+            button.textContent = '입력';
+            const result = document.createElement('div');
+
+            body.append(question, form, result)
+
+            form.append(input, button);
+
+            let 틀린횟수 = 0;
+
+            form.addEventListener('submit', function (e) {
+                e.preventDefault();
+                let answer = input.value;
+                console.log(answer);
+
+                if (answer === number_question) { // 정답을 맞췄을때
+                    result.textContent = '정답입니다!!~';
+                    console.log('정답');
+                    input.focus();
+                    input.value = '';
+                    get_num();
+                    틀린횟수 = 0;
+                }
+
+                else {  // 정답이 틀렸을 때 (스트라이크, 볼 판단하기)
+                    let answer = input.value;
+                    let strike = 0;
+                    let ball = 0;
+
+                    틀린횟수++;
+
+                    if (틀린횟수 > 10) {
+                        result.textContent = `10번넘게 틀림~! 정답은 ${숫자문제.join('')}입니다.`
+                        get_num();
+                        틀린횟수 = 0;
+                    }
+
+                    for (let i = 0; i < answer.length; i++) {
+                        if (number_question[i] === answer.split('')[i]) { // 스트라이크 판단
+                            strike++;
+                            input.value = '';
+                        }
+
+
+                        else if (number_question.split('').indexOf(answer[i]) > -1) { //볼 판단
+                            ball++;
+                            input.value = '';
+                        }
+                    }
+
+                    result.textContent = `스트라이크는 ${strike}개, 볼은 ${ball}개입니다. 남은 기회는 ${10 - 틀린횟수}입니다.`;
+                    console.log(strike);
+                    console.log(ball);
+                }
+
+
+            })
+
+        </script>
+
+
+    </body>
+
+</html>
