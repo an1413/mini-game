@@ -1,11 +1,20 @@
-html, body, pre, code, kbd, samp {
-    font-family: "둥근모꼴";
+p, button {
+    font-family: 'DungGeunMo';
 }
 
-
+.title {
+    font-size: 40px;
+}
+@font-face {
+    font-family: 'DungGeunMo';
+    src:url('./DungGeunMo.eot') format('eot'),
+        url('./DungGeunMo.woff') format('woff');
+    font-weight: 700;
+    unicode-range: U+AC00-D7AF;
+} 
 
 body {
-    padding: 50px;
+    padding: 100px;
     display: flex;
     flex-direction: column;
 }

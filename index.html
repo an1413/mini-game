@@ -15,12 +15,12 @@
     <body>
 
         <div class="nes-container with-title is-centered">
-            <p class="title">Play Number baseball</p>
-            <p>Hi Guys~ Do you want to play mini-game?</p>
+            <p class="title">숫자야구게임</p>
+            <p>숫자야구 게임 해보시겠습니까?</p>
         </div>
 
         <div class="nes-container is-dark with-title">
-            <p class="title">숫자야구</p>
+            <p class="title">숫자야구 (중복된 숫자는 없습니다.)</p>
             <p class="question"></p>
             <div class="lists">
                 <ul class="nes-list is-circle">
@@ -111,11 +111,11 @@
             let num_list = []; // 적었던 배열 기억하기
 
             function 숫자뽑기() {
-                숫자생성기 = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+                숫자생성기 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
                 숫자문제 = [];
 
                 for (let i = 0; i < 4; i++) {
-                    let 랜덤숫자 = 숫자생성기.splice(Math.floor(Math.random() * (9 - i)), 1)[0];
+                    let 랜덤숫자 = 숫자생성기.splice(Math.floor(Math.random() * (10 - i)), 1)[0];
                     숫자문제.push(랜덤숫자);
                 }
             }
@@ -161,18 +161,18 @@
                     let 스트라이크 = 0;
                     let 볼 = 0;
                     틀린횟수++;
-                    num_list.push(input.value);
-                    console.log(num_list);
-                    const rememberLi = document.createElement('li');
-                    rememberLi.textContent = input.value;
-                    rememberList.append(rememberLi);
+                    // num_list.push(input.value);
+                    // console.log(num_list);
+                    // const rememberLi = document.createElement('li');
+                    // rememberLi.textContent = input.value;
+                    // rememberList.append(rememberLi);
 
                     if (틀린횟수 > 15) {
                         정답.textContent = `10번넘게 틀림!~ 정답은 ${숫자문제.join('')}입니다.`
                         숫자뽑기();
                         틀린횟수 = 0;
                     } else {
-                        for (let i = 0; i < 3; i++) {
+                        for (let i = 0; i < 4; i++) {
                             if (Number(답배열[i]) === 숫자문제[i]) { // 같은자리인지 확인
                                 스트라이크++;
                                 input.value = '';
