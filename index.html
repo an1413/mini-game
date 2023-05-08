@@ -13,12 +13,13 @@
     </head>
 
     <body>
-
+        <!-- Title -->
         <div class="nes-container with-title is-centered">
             <p class="title">숫자야구게임</p>
             <p>숫자야구 게임 해보시겠습니까?</p>
         </div>
 
+        <!-- 숫자야구 (중복된 숫자는 없습니다.) -->
         <div class="nes-container is-dark with-title">
             <p class="title">숫자야구 (중복된 숫자는 없습니다.)</p>
             <p class="question"></p>
@@ -33,6 +34,7 @@
         </div>
 
 
+        <!-- 4자리 숫자를 맞춰보세요. -->
         <div class="question">
             <div class="game-number"></div>
             <form class="form-content">
@@ -42,7 +44,7 @@
             <div class="form-answer"></div>
         </div>
 
-
+        <!-- 아이콘 모음집 -->
         <section class="icon-list">
             <i class="nes-logo"></i>
             <i class="nes-jp-logo"></i>
@@ -50,9 +52,13 @@
             <i class="snes-jp-logo"></i>
         </section>
 
-
+        <!-- Progress bar -->
         <progress class="nes-progress" value="0" max="100"></progress>
+        <ul class="remember-list">
+            <!-- <li></li> -->
+        </ul>
 
+        <!-- btn-group -->
         <div class="btn-group">
             <section>
                 <button type="button" class="nes-btn is-primary"
@@ -98,19 +104,18 @@
             </section>
         </div>
 
-        <ul class="remember-list">
-            <!-- <li></li> -->
-        </ul>
+        <!-- 기억요소 -->
+
 
 
         <!-- Script ------------------------------------------------------------------->
         <script>
 
-            let 숫자생성기;
+            let 숫자생성기;   // 숫자 생성기
             let 숫자문제;
             let num_list = []; // 적었던 배열 기억하기
 
-            function 숫자뽑기() {
+            function 숫자뽑기() {  // 새로운 문제출제 함수
                 숫자생성기 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
                 숫자문제 = [];
 
@@ -121,7 +126,9 @@
             }
 
             숫자뽑기()
-            console.log(숫자문제);
+            console.log(숫자문제); // console.log() 확인용
+
+            // DOM등록
             const body = document.querySelector('body');
             const question = document.querySelector('.question');
             const 숫자제시 = document.querySelector('.game-number');
@@ -136,19 +143,20 @@
             button.textContent = '입력';
 
             const 정답 = document.querySelector('.form-answer');
-            const rememberList = document.querySelector('.remember-list');
+            const rememberList = document.querySelector('.remember-list');  // 기억
 
             question.append(숫자제시, form, 정답);
-
             form.append(input, button);
 
-            var 틀린횟수 = 0;
+
+            var 틀린횟수 = 0;  // 틀린횟수 초기화
+
             form.addEventListener('submit', function (e) {
                 e.preventDefault();
-                if (숫자문제.join('') === input.value) {
+                if (숫자문제.join('') === input.value) {  // 문제를 맞췄을 때
                     console.log(input.value.split(''));
                     정답.textContent = '홈런 ~~!'
-                    input.value = '';
+                    input.value = '';  // 초기화
                     input.focus();
                     console.log(input.value);
                     num_list.push(input.value);
@@ -156,37 +164,47 @@
                     숫자뽑기();
                     틀린횟수 = 0;
                 }
-                else {  // 답이 틀렸을 때 스트라이크, 볼 알려주기
+                else {  //                           답이 틀렸을 때      스트라이크, 볼 알려주기
                     let 답배열 = input.value.split('');
                     let 스트라이크 = 0;
                     let 볼 = 0;
                     틀린횟수++;
-                    // num_list.push(input.value);
-                    // console.log(num_list);
-                    // const rememberLi = document.createElement('li');
-                    // rememberLi.textContent = input.value;
+
+                    num_list.push(input.value);
+                    console.log(num_list);
+                    let rememberLi = document.createElement('li');
+                    rememberLi.textContent = input.value;
                     // rememberList.append(rememberLi);
 
+                    console.log(rememberLi.textContent);
                     if (틀린횟수 > 15) {
                         정답.textContent = `10번넘게 틀림!~ 정답은 ${숫자문제.join('')}입니다.`
                         숫자뽑기();
                         틀린횟수 = 0;
-                    } else {
+                    } else {   // 기화(틀린횟수)가 남았을 경우
                         for (let i = 0; i < 4; i++) {
-                            if (Number(답배열[i]) === 숫자문제[i]) { // 같은자리인지 확인
+                            if (Number(답배열[i]) === 숫자문제[i]) { // 같은자리인지 확인 (스트라이크 판단)
                                 스트라이크++;
                                 input.value = '';
                                 input.focus();
-                            } else if (숫자문제.indexOf(Number(답배열[i])) > -1) { // 같은 자리는 아니지만, 숫자가 겹치는지 확인
+                            } else if (숫자문제.indexOf(Number(답배열[i])) > -1) { // 같은 자리는 아니지만, 숫자가 겹치는지 확인 (볼 판단)
                                 볼++;
                                 input.value = '';
                                 input.focus();
                             }
                             정답.textContent = `스트라이크:${스트라이크}   볼:${볼}   
                             현재 ${15 - 틀린횟수}번의 기회가 남아있습니다.`;
-                            // rememberLi = rememberLi.textContent + `${스트라이크}S ${볼}B`
+                            console.log(rememberLi.textContent);
+
                         }
+
                     }
+                    const newLi = document.createElement('li');
+                    rememberLi = `${틀린횟수}.${rememberLi.textContent}
+                        ${스트라이크}S${볼}B`
+
+                    newLi.append(rememberLi);
+                    rememberList.append(newLi);
                 }
             })
 
