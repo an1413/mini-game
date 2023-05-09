@@ -139,8 +139,12 @@
             const button = document.querySelector('.form-btn');
             button.textContent = '입력';
 
+            // 진행바
+            const progressBar = document.querySelector('.nes-progress');
+
             const 정답 = document.querySelector('.form-answer');
             const rememberList = document.querySelector('.remember-list');  // 기억
+
 
             question.append(숫자제시, form, 정답);
             form.append(input, button);
@@ -163,6 +167,8 @@
                 }
                 else {  //                           답이 틀렸을 때      스트라이크, 볼 알려주기
                     let 답배열 = input.value.split('');
+                    progressBar.value += 100 / 15; // 난이도 조절시 으음..
+                    console.log(progressBar.value);
                     let 스트라이크 = 0;
                     let 볼 = 0;
                     틀린횟수++;
